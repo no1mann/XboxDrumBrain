@@ -3,6 +3,7 @@ import sys
 import Queue
 import winsound
 import thread
+import time
 from joystick_controls import *
 
 pygame.init()
@@ -71,3 +72,4 @@ while 1:
         sound_queue.put(Audio.green_pad)
     if Colors.orange in list:
         sound_queue.put(Audio.orange)
+    time.sleep(.02)
