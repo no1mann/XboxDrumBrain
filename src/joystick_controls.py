@@ -1,5 +1,6 @@
 from enum import *
-import wave
+from sdl2.ext.compat import byteify
+from sdl2.sdlmixer import *
 
 class Colors(Enum):
     red = 2
@@ -12,12 +13,15 @@ class PadType(Enum):
     pad = 10
     cymbol = 6
 
+if Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024):
+    raise RuntimeError("Cannot open mixed audio: {}".format(Mix_GetError()))
+
 class Audio(Enum):
-    red_pad = "../audio/red_pad.wav"
-    yellow_pad = "../audio/yellow_pad.wav"
-    yellow_cymbol = "../audio/yellow_cymbol.wav"
-    blue_pad = "../audio/blue_pad.wav"
-    blue_cymbol = "../audio/blue_cymbol.wav"
-    green_pad = "../audio/green_pad.wav"
-    green_cymbol = "../audio/green_cymbol.wav"
-    orange = "../audio/orange.wav"
+    red_pad = Mix_LoadWAV(byteify("../audio/red_pad.wav", "utf-8"))
+    yellow_pad = Mix_LoadWAV(byteify("../audio/yellow_pad.wav", "utf-8"))
+    yellow_cymbol = Mix_LoadWAV(byteify("../audio/yellow_cymbol.wav", "utf-8"))
+    blue_pad = Mix_LoadWAV(byteify("../audio/blue_pad.wav", "utf-8"))
+    blue_cymbol = Mix_LoadWAV(byteify("../audio/blue_cymbol.wav", "utf-8"))
+    green_pad = Mix_LoadWAV(byteify("../audio/green_pad.wav", "utf-8"))
+    green_cymbol = Mix_LoadWAV(byteify("../audio/green_cymbol.wav", "utf-8"))
+    orange = Mix_LoadWAV(byteify("../audio/orange.wav", "utf-8"))
