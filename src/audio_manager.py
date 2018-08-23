@@ -40,24 +40,6 @@ class Audio(Enum):
     green_cymbol = load_audio("green_cymbol")
     orange = load_audio("orange")
 
-# Processing queue for audio files
-sound_queue = Queue.Queue()
-
-# Global thread for audio processing
-def sound_thread():
-    global sound_queue
-    while 1:
-        # If the audio processing queue is not empty, process the queue
-        if not sound_queue.empty():
-            # Every audio file in the queue
-            for item in iter(sound_queue.get, None):
-                # Launch new thread to play audio file
-                thread.start_new_thread(play_sound, (item,))
-            # Clear queue when processing is finished
-            sound_queue = Queue.Queue()
-        # Pause the thread for efficiency
-        time.sleep(.01)
-
 # Function for playing an individual audio file
 def play_sound(audio):
     Mix_PlayChannel(-1, audio, 0)
